@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { headers } from "next/headers";
 import "./globals.css";
 import JsonLd from "@/components/seo/json-ld";
 import { createMetadata } from "@/lib/metadata";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ranade = localFont({
+  src: "./fonts/Ranade-Variable.ttf",
+  variable: "--font-ranade",
+  weight: "100 900",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -39,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistMono.variable} bg-[var(--background)] text-[var(--foreground)] antialiased`}
+        className={`${ranade.variable} ${jetbrainsMono.variable} bg-bg-page text-fg-primary antialiased`}
       >
         {children}
         <JsonLd />

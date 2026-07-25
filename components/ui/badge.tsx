@@ -3,30 +3,33 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+type Tone = "accent" | "success" | "danger" | "warning" | "info" | "neutral";
+
 type BadgeProps = {
   children: ReactNode;
   className?: string;
-  tone?: "cyan" | "violet" | "lime" | "coral";
+  tone?: Tone;
 };
 
-const toneClasses = {
-  cyan: "border-[var(--blue)] bg-transparent text-[var(--blue)]",
-  violet: "border-[var(--violet)] bg-transparent text-[var(--violet)]",
-  lime: "border-[var(--lime)] bg-transparent text-[var(--lime)]",
-  coral: "border-[var(--coral)] bg-transparent text-[var(--coral)]",
+const toneClasses: Record<Tone, string> = {
+  accent: "border-accent/30 bg-accent-soft text-accent-strong",
+  success: "border-success/30 bg-success/10 text-success",
+  danger: "border-danger/30 bg-danger/10 text-danger",
+  warning: "border-warning/30 bg-warning/10 text-accent-strong",
+  info: "border-info/30 bg-info/10 text-info",
+  neutral: "border-border-default bg-bg-sunken text-fg-secondary",
 };
 
-export function Badge({ children, className, tone = "cyan" }: BadgeProps) {
+export function Badge({ children, className, tone = "neutral" }: BadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex min-h-7 items-center gap-2 border px-2.5 py-1 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.12em]",
+        "inline-flex items-center gap-1.5 rounded-pill border px-2.5 py-1 font-mono text-2xs font-medium tracking-wide",
         toneClasses[tone],
         className,
       )}
     >
-      <i aria-hidden="true" className="h-1.5 w-1.5 bg-current" />
-      <span>{children}</span>
+      {children}
     </span>
   );
 }

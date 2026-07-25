@@ -136,8 +136,9 @@ export const seo = {
 
   links: {
     docs: "https://docs.cheelalabs.com",
+    dashboard: "https://app.cheelalabs.com",
     github: "https://github.com/cheela-labs",
-    npm: "https://www.npmjs.com/org/cheela-labs",
+    npm: "https://www.npmjs.com/package/@cheela/cli",
   },
 
   authors: [

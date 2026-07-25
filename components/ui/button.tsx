@@ -10,18 +10,16 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "outline" | "ghost" | "link";
 
 const baseClassName =
-  "group inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap border px-4 py-2.5 font-mono text-[0.64rem] font-semibold uppercase tracking-[0.1em] transition-colors duration-150 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-45";
+  "inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md px-5 py-2.5 font-body text-sm font-medium transition-transform duration-fast ease-out active:scale-[0.97] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-45";
 
 const variantClasses: Record<Variant, string> = {
-  primary:
-    "border-[var(--primary)] bg-[var(--primary)] text-[var(--background)] hover:border-[var(--foreground)] hover:bg-[var(--foreground)]",
+  primary: "bg-accent text-fg-on-accent",
   secondary:
-    "border-[var(--border-bright)] bg-transparent text-[var(--foreground)] hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)]",
+    "border border-border-strong bg-bg-surface text-fg-primary hover:bg-bg-sunken",
   outline:
-    "border-[var(--border-bright)] bg-transparent text-[var(--foreground)] hover:border-[var(--primary)] hover:text-[var(--primary)]",
-  ghost:
-    "border-transparent bg-transparent text-[var(--muted)] hover:border-[var(--border)] hover:text-[var(--foreground)]",
-  link: "min-h-0 border-0 px-0 py-0 text-[var(--primary)] hover:bg-transparent hover:text-[var(--primary-hover)]",
+    "border border-border-strong bg-transparent text-fg-primary hover:bg-bg-sunken",
+  ghost: "text-fg-secondary hover:bg-bg-sunken hover:text-fg-primary",
+  link: "min-h-0 rounded-none px-0 py-0 text-accent-strong hover:text-accent",
 };
 
 type ButtonCommonProps = {

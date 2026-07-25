@@ -4,7 +4,7 @@
 
 ## Mission
 
-You are building the official website for **Cheela**, an open platform for building reliable AI agents.
+You are building the official website for **Cheela**, infrastructure for AI agents — routing, evals, and observability between an application and every model provider it uses.
 
 This is **not** a marketing website.
 
@@ -47,13 +47,9 @@ Use:
 - Next.js 16 (App Router)
 - React 19
 - TypeScript
-- Tailwind CSS v4
-- Motion (motion.dev)
-- shadcn/ui
-- Radix UI
-- Lucide React
-- Simple Icons (brand icons)
-- class-variance-authority
+- Tailwind CSS v4 (CSS-first `@theme` config, no `tailwind.config.js`)
+- Lucide (icons)
+- class-variance-authority is NOT used — variant styling is plain `Record<Variant, string>` lookups + the shared `cn()` helper
 - tailwind-merge
 - clsx
 - Biome
@@ -89,65 +85,45 @@ Every component should be composable.
 
 # Theme
 
-Dark mode only.
+Light by default, with dark "console" bands for contrast (solution/CLI/AI-native sections on Home, pull-quotes, footer). No gradients, no photography — solid colors only.
 
-No light theme.
+All tokens live in `app/globals.css`'s `@theme` block (colors, fonts, type scale, spacing aliases, radius, shadows, easing/duration) and are consumed as Tailwind utilities (`bg-accent`, `text-fg-primary`, `font-display`), not arbitrary-value classes.
 
-Background:
+Paper / ink neutrals:
 
-#090909
+- `--color-paper-0` `#FFFFFF` → `--color-paper-3` `#E8E6E0`
+- `--color-ink-0` `#050505` → `--color-ink-6` `#95959C`
 
-Surface:
+Accent (single warm orange, sampled from the logo mark):
 
-#111111
+- `--color-orange-600` `#FFA600` — the only accent color in the system
+- Aliases: `accent` / `accent-strong` / `accent-soft`
 
-Foreground:
+Console sub-palette (dark bands + the dashboard app):
 
-#FAFAFA
+- `console-bg` `#0E0E10`, `console-surface`, `console-border`, `console-fg`, `console-fg-muted`
 
-Muted:
+Semantic: `success` `#1F8B4C`, `danger` `#D3402B`, `warning` (= accent), `info` `#2B6CD3`.
 
-#A1A1AA
-
-Border:
-
-#232323
-
-Primary:
-
-#D4A017
-
-Primary Hover:
-
-#E4B328
-
-Accent should only be used where attention is required.
-
-Do not overuse yellow.
+Accent should only be used where attention is required. Do not overuse orange.
 
 ---
 
 # Typography
 
-Use Geist Sans.
+Use **Ranade** (self-hosted variable font, weights 100–900) for both display and body — one typeface, weight does the work of hierarchy.
 
-Use Geist Mono for code.
+Use **JetBrains Mono** for anything code-adjacent: endpoints, keys, logs, terminal output, tiny uppercase eyebrow labels.
 
-Hero
+Type scale (all exposed as Tailwind `text-*` utilities via `@theme`):
 
-80-96px
+- `text-6xl` 120px (rarely used) / `text-5xl` 88px (page h1) / `text-4xl` 64px / `text-3xl` 48px (section h2)
+- `text-2xl` 36px / `text-xl` 28px / `text-lg` 22px / `text-md` 18px (body/lede)
+- `text-base` 16px / `text-sm` 14px / `text-xs` 12px / `text-2xs` 11px (eyebrows, tags)
 
-Section headings
+Display text uses tight/negative letter-spacing (`tracking-tight`, -0.03em) and tight line-height (`leading-tight`, 1.05). Body text uses `leading-relaxed` (1.65) for reading comfort.
 
-48-56px
-
-Body
-
-18px
-
-Small text
-
-14px
+Eyebrow labels (`INFRASTRUCTURE FOR AGENTS`, `WITHOUT CHEELA`) are already-uppercase copy set in `font-mono` + `tracking-wide` — do not apply a CSS `uppercase` transform, the copy itself is written in caps.
 
 Spacing should be generous.
 
@@ -155,63 +131,43 @@ Spacing should be generous.
 
 # Radius
 
-Buttons
-
-9999px
-
-Cards
-
-24px
-
-Inputs
-
-16px
+- Buttons / inputs / cards: `radius-md` (12px) or `radius-lg` (16px) for cards
+- Pills: `radius-pill` (999px) — reserved for tags, badges, and switches only, never buttons
 
 ---
 
 # Shadows
 
-Very subtle.
-
-Never use large blurry shadows.
+Very subtle. `shadow-xs`/`shadow-sm` for resting surfaces. `shadow-md`/`shadow-lg` only for lifted surfaces (dialogs, popovers, hero terminal). Never large blurry shadows.
 
 ---
 
 # Layout
 
-Container
+Container: `max-width: var(--container-max)` (1200px), or `var(--container-narrow)` (760px) for long-form text pages (About, Why Cheela, Changelog, Contact).
 
-max-width: 1400px
+Section padding: `py-24` (96px), `py-32` (128px) for hero/final-CTA bands.
 
-Section padding
-
-128px
-
-Card padding
-
-32px
+Card padding: `p-6`–`p-8`.
 
 ---
 
 # Folder Structure
 
+```
 app/
-
+  (marketing)/          — layout.tsx (NavBar + SiteFooter) + one page.tsx per route
+    page.tsx            — Home
+    about/, why-cheela/, pricing/, blog/, changelog/, contact/, playground/
+  fonts/                — self-hosted Ranade-Variable.ttf
 components/
-    ui/
-    layout/
-    sections/
-    motion/
-    animations/
-    icons/
-
-hooks/
-
+  chrome/                — NavBar, SiteFooter, TerminalWindow/TypingTerminal
+  sections/home/         — one file per Home section (hero, problem, solution, ...)
+  ui/                    — Button, Badge, Card, CodeBlock, Container, Section
+  contact/, playground/  — page-specific interactive pieces
 lib/
-
-styles/
-
 public/
+```
 
 Every UI primitive should exist before sections are built.
 
@@ -219,368 +175,86 @@ Every UI primitive should exist before sections are built.
 
 # Design System
 
-Create reusable components:
+Reusable components:
 
-Button
+Button, Badge, Card, Section (with `inverse`/`narrow` variants), Container, CodeBlock, TerminalWindow/TypingTerminal.
 
-Badge
-
-Card
-
-Section
-
-Container
-
-Grid
-
-Typography
-
-Divider
-
-Glow
-
-Grid Pattern
-
-Code Block
-
-Feature Card
-
-Timeline
-
-Accordion
-
-Everything should be reusable.
+Everything should be reusable — new pages compose from these rather than hand-rolling markup.
 
 ---
 
 # Motion
 
-Motion is a first-class part of the design.
+Motion is a first-class part of the design, but restrained: 120–280ms, standard/out easing. Buttons scale to `0.97` on press — never a color-darkening hover, never bounce or spring.
 
-Never add random animations.
-
-Every animation must have purpose.
+Never add random animations. Every animation must have purpose.
 
 Motion should feel:
 
 - smooth
 - premium
 - deliberate
-- expensive
+- restrained
 
-Never bouncy.
-
-Never playful.
-
-Never exaggerated.
-
-Use spring animations only where appropriate.
+Never bouncy. Never playful. Never exaggerated.
 
 ---
 
 # Motion Principles
 
-Entrance
-
-Fade
-
-Slide
-
-Scale
-
-Reveal
-
-Stagger
-
-Hover
-
-Lift
-
-Glow
-
-Border
-
-Cursor
-
-Scroll
-
-Parallax
-
-Timeline growth
-
-Line drawing
-
-Architecture pulse
-
----
-
-# Hero
-
-Hero occupies 100vh.
-
-Left:
-
-Large headline.
-
-Description.
-
-Buttons.
-
-Right:
-
-Interactive runtime architecture.
-
-Background:
-
-Animated mustard beams.
-
-Animated glow.
-
-Noise.
-
-Grid.
-
-The hero should immediately communicate what Cheela is.
-
----
-
-# Hero Animation
-
-The yellow beams slowly push inward.
-
-Very slow.
-
-Continuous.
-
-No flashing.
-
-No rapid movement.
-
-The runtime architecture contains a small pulse that travels:
-
-Application
-
-↓
-
-Agent
-
-↓
-
-Runtime
-
-↓
-
-Capability
-
-↓
-
-Action
-
-↓
-
-Provider
-
-↓
-
-LLM
-
-Every few seconds.
-
-This becomes Cheela's signature animation.
+- Entrance: fade + slight upward translate (`[data-reveal]`, driven by `animation-timeline: view()`, falls back to visible when unsupported)
+- Hover: border/background change only — no color-darkening on solid buttons
+- Terminal / typing effects: used sparingly (Home hero, CLI section, Playground) via the shared `TypingTerminal` component
 
 ---
 
 # Navbar
 
-Transparent.
-
-Blurred.
-
-Floating.
-
-Rounded.
-
-On scroll:
-
-Increase blur.
-
-Increase border opacity.
-
-Reduce height slightly.
-
-Navigation:
-
-Docs
-
-Blog
-
-Open Source
-
-About
-
-GitHub
-
-Get Started
+Sticky, 72px tall, shared across every marketing route via `(marketing)/layout.tsx`. Logo mark + wordmark left, 8-item nav center (active item derived from `usePathname()`, not a prop), npm icon + "Get started" (→ dashboard app) right.
 
 ---
 
-# Sections
+# Sections (Home)
 
-The homepage contains:
+12 sections, each its own file under `components/sections/home/`: Hero, Problem, Solution, How It Works, Architecture, CLI Experience, Dashboard Preview, Documentation, Blog Preview, AI-Native, Pricing Preview, Final CTA.
 
-Hero
-
-Problem
-
-Solution
-
-Architecture
-
-Features
-
-Developer Experience
-
-Open Source
-
-Roadmap
-
-FAQ
-
-CTA
-
-Footer
-
-Build each section independently.
-
----
-
-# Developer Experience
-
-Use syntax highlighted TypeScript.
-
-Never screenshots.
-
-Real code blocks.
-
-Copy buttons.
-
----
-
-# Open Source
-
-Repository cards.
-
-GitHub links.
-
-MIT badge.
-
-Statistics.
+Build each section independently — a section should not depend on another section's internal state.
 
 ---
 
 # Cards
 
-Hover:
-
-Small lift.
-
-Border glow.
-
-No large transforms.
+Border-first, not shadow-first: `border border-border-default`, `shadow-xs` at rest, subtle `shadow-sm` on hover — no color-darkening border on hover.
 
 ---
 
 # Buttons
 
-Primary
-
-Mustard
-
-Secondary
-
-Outline
-
-Ghost
-
-Transparent
-
-Link
-
-Underline
-
-Hover animations should be subtle.
+Solid `radius-md`, `text-sm font-medium`, scale-to-0.97 on press. Variants: primary (solid accent), secondary/outline (bordered), ghost (transparent, sunken fill on hover), link (text only).
 
 ---
 
 # Icons
 
-Use Lucide.
-
-Brand icons use Simple Icons.
+Use **Lucide** (1.5–1.7px stroke, 24px grid). No icon font, no emoji, no unicode-glyph icons.
 
 ---
 
 # Images
 
-Do not use stock images.
-
-Do not use AI generated people.
-
-Everything should be:
-
-Diagrams
-
-Architecture
-
-Code
-
-Illustrations
-
-Geometry
+No photography, no hand-drawn illustration, no repeating patterns/textures, no gradients. The only image asset is the logo mark (`/logo-mark.svg`, `/logo.png`).
 
 ---
 
 # Visual Language
 
-The website should feel industrial.
-
-Minimal.
-
-Technical.
-
-Premium.
-
-Precise.
-
-Never playful.
+Solid colors only. Thin 1px borders as the primary separator. Numbers over adjectives in copy (`212ms p50 latency`, not "blazing fast"). Sentence case everywhere, including headlines and buttons.
 
 ---
 
 # Inspiration
 
-Stripe
-
-Vercel
-
-Linear
-
-Raycast
-
-Anthropic
-
-GitHub
-
-Do not copy layouts.
-
-Take inspiration from:
-
-Typography
-
-Spacing
-
-Motion
-
-Quality
+Stripe, Vercel, Linear, Raycast, Anthropic — developer-first, typography-led, restrained motion.
 
 ---
 
@@ -602,71 +276,27 @@ Respect prefers-reduced-motion.
 
 Lighthouse target
 
-100
+100 Accessibility · 100 Best Practices · 100 SEO
 
-Accessibility
-
-100
-
-Best Practices
-
-100
-
-SEO
-
-100
-
-Use lazy loading.
-
-Avoid unnecessary JavaScript.
-
-Minimize layout shift.
+Use lazy loading. Avoid unnecessary JavaScript. Minimize layout shift.
 
 ---
 
 # SEO
 
-Metadata
-
-OpenGraph
-
-Twitter Cards
-
-JSON-LD
-
-Sitemap
-
-robots.txt
-
-RSS
-
-Canonical URLs
-
-Structured data.
+Metadata, OpenGraph, Twitter Cards, JSON-LD, Sitemap, robots.txt, RSS, canonical URLs, structured data — all wired through `lib/metadata.ts` (`createMetadata()`) and `lib/seo.ts` (`seo` const).
 
 ---
 
 # Responsiveness
 
-Desktop first.
-
-Tablet.
-
-Mobile.
-
-No horizontal scrolling.
-
-Every component must adapt.
+Desktop first. Tablet. Mobile. No horizontal scrolling. Every component must adapt.
 
 ---
 
 # Animation Budget
 
-Do not animate everything.
-
-Motion should guide attention.
-
-If an animation doesn't improve understanding, remove it.
+Do not animate everything. Motion should guide attention. If an animation doesn't improve understanding, remove it.
 
 ---
 

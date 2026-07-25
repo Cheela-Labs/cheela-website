@@ -21,7 +21,7 @@ export function createMetadata(
 
     icons: {
       icon: "/favicon.ico",
-      apple: "/apple-tpuch-icon.png"
+      apple: "/apple-touch-icon.png",
     },
 
     keywords: [...seo.keywords],

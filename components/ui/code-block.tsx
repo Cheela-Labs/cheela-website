@@ -29,29 +29,33 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "overflow-hidden border border-[#3d3c38] bg-[#11110f] text-[#eeeae1]",
+        "overflow-hidden rounded-lg border border-line-dark-1 bg-ink-1 text-console-fg shadow-lg",
         className,
       )}
     >
-      <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-[#3d3c38] bg-[#181816] px-4 py-3 sm:px-5">
-        <div className="flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-[#8c8a82]">
-          <span aria-hidden="true" className="h-2 w-2 bg-[#ff5c35]" />
-          <span aria-hidden="true" className="h-2 w-2 bg-[#87a7ff]" />
-          <span aria-hidden="true" className="mr-2 h-2 w-2 bg-[#bed78d]" />
-          <span className="font-semibold text-[#eeeae1]">{title}</span>
-          <span aria-hidden="true">::</span>
-          <span>{language}</span>
+      <div className="flex min-h-12 flex-wrap items-center justify-between gap-3 border-b border-line-dark-1 bg-ink-2 px-4 py-3 sm:px-5">
+        <div className="flex items-center gap-2">
+          <span aria-hidden="true" className="flex gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-ink-4" />
+            <span className="h-2.5 w-2.5 rounded-full bg-ink-4" />
+            <span className="h-2.5 w-2.5 rounded-full bg-ink-4" />
+          </span>
+          <span className="ml-2 font-mono text-xs tracking-wide text-console-fg-muted">
+            <span className="font-semibold text-console-fg">{title}</span>
+            <span aria-hidden="true"> :: </span>
+            <span>{language}</span>
+          </span>
         </div>
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex min-h-8 items-center gap-1 border border-[#3d3c38] px-2 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#ff795a] transition-colors hover:border-[#eeeae1] hover:text-[#eeeae1]"
+          className="inline-flex min-h-8 items-center gap-1 rounded-md px-2 font-mono text-2xs font-medium tracking-wide text-accent transition-colors hover:text-console-fg"
           aria-live="polite"
         >
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="min-h-[420px] overflow-x-auto p-5 text-sm leading-7 text-[#c5c1b8] sm:p-7">
+      <pre className="min-h-[420px] overflow-x-auto p-5 font-mono text-sm leading-relaxed text-console-fg-muted sm:p-7">
         <code>{children}</code>
       </pre>
     </div>
