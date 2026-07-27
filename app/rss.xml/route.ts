@@ -9,11 +9,9 @@ export async function GET() {
     <link>${siteUrl}</link>
     <description>Open platform for building reliable AI agents.</description>
     <language>en</language>
-    <item>
-      <title>Cheela launches</title>
-      <link>${siteUrl}</link>
-      <description>Cheela is an open platform for building reliable AI agents.</description>
-    </item>
+    <!-- Intentionally item-less: nothing is published yet. An empty channel is
+         valid RSS, so subscribers can add the feed now and get the first post
+         when it lands. Items come from the MDX loader once the blog is built. -->
   </channel>
 </rss>`;
 
