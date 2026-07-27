@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import "./globals.css";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import JsonLd from "@/components/seo/json-ld";
 import { createMetadata } from "@/lib/metadata";
 
@@ -51,6 +52,7 @@ export default function RootLayout({
       >
         {children}
         <JsonLd />
+        <GoogleAnalytics />
       </body>
     </html>
   );
