@@ -224,3 +224,188 @@ a.link-accent:hover {
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Long-form post body
+   ---------------------------------------------------------------------------
+   Rendered markdown arrives as a plain HTML string, so it cannot carry utility
+   classes. These element selectors are scoped to .post-body and are the whole
+   type system for an article.
+   ------------------------------------------------------------------------- */
+
+.post-body {
+  color: var(--color-fg-secondary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.post-body > * + * {
+  margin-top: 1.35em;
+}
+
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  color: var(--color-fg-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  scroll-margin-top: 6rem;
+}
+
+.post-body h2 {
+  margin-top: 2.4em;
+  font-size: var(--text-xl);
+}
+
+.post-body h3 {
+  margin-top: 2em;
+  font-size: var(--text-lg);
+}
+
+.post-body h4 {
+  margin-top: 1.8em;
+  font-size: var(--text-md);
+}
+
+.post-body a {
+  color: var(--color-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.post-body a:hover {
+  color: var(--color-accent);
+}
+
+.post-body strong {
+  color: var(--color-fg-primary);
+  font-weight: 600;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.35em;
+}
+
+.post-body ul {
+  list-style: disc;
+}
+
+.post-body ol {
+  list-style: decimal;
+}
+
+.post-body li + li {
+  margin-top: 0.5em;
+}
+
+.post-body li::marker {
+  color: var(--color-fg-tertiary);
+}
+
+.post-body blockquote {
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-bg-sunken);
+  padding: 1em 1.25em;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.post-body blockquote > * + * {
+  margin-top: 0.75em;
+}
+
+.post-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-bg-sunken);
+  border: 1px solid var(--color-border-default);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  overflow-wrap: anywhere;
+}
+
+.post-body pre {
+  background: var(--color-console-bg);
+  color: var(--color-console-fg);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.35rem;
+  /* Code blocks are the usual cause of a horizontally scrolling page — keep
+     the overflow inside the block. */
+  overflow-x: auto;
+}
+
+.post-body pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: inherit;
+  overflow-wrap: normal;
+}
+
+.post-figure {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.post-figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+}
+
+/* Tables are the other common source of page-level horizontal scroll. */
+.post-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.post-body th,
+.post-body td {
+  border: 1px solid var(--color-border-default);
+  padding: 0.6em 0.8em;
+  text-align: left;
+  vertical-align: top;
+}
+
+.post-body th {
+  background: var(--color-bg-sunken);
+  color: var(--color-fg-primary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--color-border-default);
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+.post-body details {
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  padding: 1em 1.25em;
+  background: var(--color-bg-surface);
+}
+
+.post-body summary {
+  cursor: pointer;
+  color: var(--color-fg-primary);
+  font-weight: 600;
+}
+
+.post-body img {
+  max-width: 100%;
+  height: auto;
+}

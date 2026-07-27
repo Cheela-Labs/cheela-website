@@ -1,0 +1,11 @@
+# Inert in the monorepo — git only ever reads .gitmodules from the repository
+# root, and the monorepo's own copy lives there and owns this submodule.
+#
+# This file exists for the `cheela-website` mirror, where tooling/subtree.sh
+# makes apps/website the repository root. Without it the mirror would carry a
+# gitlink at content/blog that nothing describes, and a clone would leave the
+# directory empty with no way to populate it.
+[submodule "content/blog"]
+	path = content/blog
+	url = https://github.com/Cheela-Labs/cheela-blog.git
+	branch = main
