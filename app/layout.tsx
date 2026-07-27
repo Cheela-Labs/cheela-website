@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createMetadata(
     "Infrastructure for AI Agents",
     "Build production-ready AI agents with provider-agnostic runtimes, SDKs, and developer infrastructure.",
-    requestOrigin,
+    { path: "/", origin: requestOrigin },
   );
 }
 

@@ -6,6 +6,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata(
   "Contact",
   "Talk to the Cheela Labs team — general inquiries, support, security, and GitHub.",
+  { path: "/contact" },
 );
 
 const CHANNELS = [

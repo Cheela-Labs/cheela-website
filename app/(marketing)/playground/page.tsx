@@ -9,6 +9,7 @@ import { seo } from "@/lib/seo";
 export const metadata: Metadata = createMetadata(
   "Playground",
   "Experience Cheela before you write a line of code — a live terminal and SDK explorer.",
+  { path: "/playground" },
 );
 
 export default function PlaygroundPage() {

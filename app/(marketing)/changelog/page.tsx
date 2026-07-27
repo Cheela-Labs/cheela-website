@@ -5,6 +5,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata(
   "Changelog",
   "A transparent history of what changed in the gateway, CLI, and SDK.",
+  { path: "/changelog" },
 );
 
 export default function ChangelogPage() {

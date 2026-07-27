@@ -5,6 +5,7 @@ import { createMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createMetadata(
   "About",
   "Cheela Labs builds the layer between models and products.",
+  { path: "/about" },
 );
 
 const PRINCIPLES = [

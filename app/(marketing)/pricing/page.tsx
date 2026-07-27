@@ -7,6 +7,7 @@ import { seo } from "@/lib/seo";
 export const metadata: Metadata = createMetadata(
   "Pricing",
   "Simple pricing. No surprises. Priced by usage, per workspace.",
+  { path: "/pricing" },
 );
 
 const TIERS = [

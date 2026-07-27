@@ -7,6 +7,7 @@ import { seo } from "@/lib/seo";
 export const metadata: Metadata = createMetadata(
   "Why Cheela",
   "Why make applications AI-native? The reasoning behind Cheela's platform.",
+  { path: "/why-cheela" },
 );
 
 const QUESTIONS = [
