@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-const fallbackOrigin = "http://localhost:3000";
-
 export const siteName = "Cheela";
 export const siteDescription =
   "Cheela is an open platform for building reliable AI agents.";
@@ -14,40 +12,6 @@ export const siteKeywords = [
   "runtime policy",
   "TypeScript",
 ];
-
-function normalizeOrigin(value: string) {
-  try {
-    return new URL(value).origin;
-  } catch {
-    try {
-      return new URL(`https://${value}`).origin;
-    } catch {
-      return fallbackOrigin;
-    }
-  }
-}
-
-export function getSiteOrigin() {
-  const siteUrl = process.env.SITE_URL?.trim();
-
-  if (siteUrl) {
-    return normalizeOrigin(siteUrl);
-  }
-
-  const vercelUrl = process.env.VERCEL_URL?.trim();
-
-  if (vercelUrl) {
-    return normalizeOrigin(
-      vercelUrl.startsWith("http") ? vercelUrl : `https://${vercelUrl}`,
-    );
-  }
-
-  return fallbackOrigin;
-}
-
-export function getSiteUrl(pathname = "/") {
-  return new URL(pathname, getSiteOrigin()).toString();
-}
 
 export function getVerificationMetadata(): Metadata["verification"] {
   const google = process.env.GOOGLE_SITE_VERIFICATION?.trim();
@@ -136,7 +100,7 @@ export const seo = {
 
   links: {
     docs: "https://docs.cheelalabs.com",
-    dashboard: "https://app.cheelalabs.com",
+    dashboard: "https://dashboard.cheelalabs.com",
     github: "https://github.com/cheela-labs",
     npm: "https://www.npmjs.com/package/@cheela/cli",
   },
@@ -144,7 +108,32 @@ export const seo = {
   authors: [
     {
       name: "Cheela Labs",
-      url: "https://cheelalabs.com",
+      // www, not the apex — the apex 308s, and a redirect hop here dilutes the
+      // signal for the URL that should actually rank.
+      url: "https://www.cheelalabs.com",
     },
   ],
 } as const;
+
+/**
+ * Absolute URL on the canonical production host.
+ *
+ * This deliberately does not consult SITE_URL or VERCEL_URL. Deriving the
+ * origin from the environment is what put `https://cheela.virentanti.in` into
+ * the live homepage's Organization, WebSite, SoftwareApplication and
+ * BreadcrumbList nodes — a stale env var silently rebranded the entity Google
+ * had been building. Structured data and canonicals describe the site's
+ * identity, which does not vary per deployment, so they are pinned to one host.
+ *
+ * Note the single-slash join: `seo.site.url` carries a trailing slash, so the
+ * template-literal concatenation this replaces produced ids like
+ * `…cheelalabs.com//#organization`, which no other node's reference matched.
+ */
+export function siteUrl(pathname = "/"): string {
+  return new URL(pathname, seo.site.url).toString();
+}
+
+/** Stable JSON-LD node id: `organization` → `https://…/#organization`. */
+export function nodeId(fragment: string): string {
+  return `${siteUrl("/")}#${fragment.replace(/^#/, "")}`;
+}

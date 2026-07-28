@@ -1,14 +1,23 @@
-import { seo } from "./seo";
+import { nodeId, seo, siteUrl } from "./seo";
 
+/**
+ * The site's entity graph, emitted once from the root layout.
+ *
+ * Every id goes through `nodeId` so that a reference from anywhere else — a
+ * post's `publisher`, a breadcrumb's parent — resolves to the same node.
+ * Previously these were built by string concatenation against a `seo.site.url`
+ * that ends in a slash, yielding `…com//#organization`, so references written
+ * the obvious way pointed at a node that did not exist.
+ */
 export const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${seo.site.url}/#organization`,
+    "@id": nodeId("organization"),
 
     name: "Cheela Labs",
-    url: seo.site.url,
-    logo: `${seo.site.url}${seo.images.logo}`,
+    url: siteUrl("/"),
+    logo: siteUrl(seo.images.logo),
     description: seo.site.description,
 
     sameAs: [seo.social.github, seo.social.linkedin, seo.social.x],
@@ -17,31 +26,31 @@ export const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": `${seo.site.url}/#website`,
+    "@id": nodeId("website"),
 
-    url: seo.site.url,
+    url: siteUrl("/"),
     name: "Cheela Labs",
     description: seo.site.description,
 
     publisher: {
-      "@id": `${seo.site.url}/#organization`,
+      "@id": nodeId("organization"),
     },
   },
 
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "@id": `${seo.site.url}/#software`,
+    "@id": nodeId("software"),
 
     name: "Cheela",
-    url: seo.site.url,
+    url: siteUrl("/"),
     description: seo.site.description,
 
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Web",
 
     publisher: {
-      "@id": `${seo.site.url}/#organization`,
+      "@id": nodeId("organization"),
     },
   },
 ];

@@ -101,8 +101,9 @@ The Cheela name, logo, branding, trademarks, and other visual assets are not inc
 
 ## Links
 
-- Website: https://cheela.virentanti.in
-- Documentation: https://docs.cheela.virentanti.in
+- Website: https://www.cheelalabs.com
+- Documentation: https://docs.cheelalabs.com
+- Dashboard: https://dashboard.cheelalabs.com
 - GitHub: https://github.com/Cheela-Labs
 
 ---

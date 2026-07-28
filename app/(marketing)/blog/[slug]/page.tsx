@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { formatPostDate, getAllPosts, getPost } from "@/lib/blog";
 import { createMetadata } from "@/lib/metadata";
-import { seo } from "@/lib/seo";
+import { nodeId, siteUrl } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: Params) {
 
   if (!post) notFound();
 
-  const url = new URL(`/blog/${post.slug}`, seo.site.url).toString();
+  const url = siteUrl(`/blog/${post.slug}`);
   const published = new Date(`${post.date}T00:00:00Z`).toISOString();
 
   const jsonLd: unknown[] = [
@@ -57,13 +57,11 @@ export default async function BlogPostPage({ params }: Params) {
       datePublished: published,
       dateModified: published,
       author: { "@type": "Person", name: post.author },
-      publisher: { "@id": `${seo.site.url}#organization` },
+      publisher: { "@id": nodeId("organization") },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       url,
       keywords: post.keywords.join(", "),
-      ...(post.image
-        ? { image: new URL(post.image, seo.site.url).toString() }
-        : {}),
+      ...(post.image ? { image: siteUrl(post.image) } : {}),
     },
     {
       "@context": "https://schema.org",
@@ -73,7 +71,7 @@ export default async function BlogPostPage({ params }: Params) {
           "@type": "ListItem",
           position: 1,
           name: "Blog",
-          item: new URL("/blog", seo.site.url).toString(),
+          item: siteUrl("/blog"),
         },
         { "@type": "ListItem", position: 2, name: post.title, item: url },
       ],
