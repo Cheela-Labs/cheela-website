@@ -22,7 +22,6 @@ const ROUTES: { path: string; priority: number; lastModified: string }[] = [
   { path: "/changelog", priority: 0.5, lastModified: "2026-07-27" },
   { path: "/about", priority: 0.5, lastModified: "2026-07-25" },
   { path: "/contact", priority: 0.5, lastModified: "2026-07-25" },
-  { path: "/playground", priority: 0.6, lastModified: "2026-07-25" },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

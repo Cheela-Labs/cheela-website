@@ -158,13 +158,14 @@ Card padding: `p-6`–`p-8`.
 app/
   (marketing)/          — layout.tsx (NavBar + SiteFooter) + one page.tsx per route
     page.tsx            — Home
-    about/, why-cheela/, pricing/, blog/, changelog/, contact/, playground/
+    about/, why-cheela/, pricing/, blog/, blog/[slug]/, changelog/, contact/
   fonts/                — self-hosted Ranade-Variable.ttf
 components/
   chrome/                — NavBar, SiteFooter, TerminalWindow/TypingTerminal
   sections/home/         — one file per Home section (hero, problem, solution, ...)
   ui/                    — Button, Badge, Card, CodeBlock, Container, Section
-  contact/, playground/  — page-specific interactive pieces
+  contact/               — page-specific interactive pieces
+  analytics/             — gtag bootstrap + consent banner
 lib/
 public/
 ```
@@ -204,7 +205,7 @@ Never bouncy. Never playful. Never exaggerated.
 
 - Entrance: fade + slight upward translate (`[data-reveal]`, driven by `animation-timeline: view()`, falls back to visible when unsupported)
 - Hover: border/background change only — no color-darkening on solid buttons
-- Terminal / typing effects: used sparingly (Home hero, CLI section, Playground) via the shared `TypingTerminal` component
+- Terminal / typing effects: used sparingly (Home hero, CLI section) via the shared `TypingTerminal` component
 
 ---
 

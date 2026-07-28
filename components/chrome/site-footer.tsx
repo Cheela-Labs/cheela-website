@@ -11,7 +11,6 @@ const COLUMNS: FooterColumn[] = [
     links: [
       { label: "Why Cheela", href: "/why-cheela" },
       { label: "Docs", href: seo.links.docs },
-      { label: "Playground", href: "/playground" },
       { label: "Pricing", href: "/pricing" },
     ],
   },

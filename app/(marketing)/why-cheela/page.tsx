@@ -96,10 +96,10 @@ export default function WhyCheelaPage() {
               Read the docs
             </Link>
             <Link
-              href="/playground"
+              href={seo.links.dashboard}
               className="inline-flex items-center rounded-md border border-border-strong px-6 py-3.5 text-md font-medium text-fg-primary"
             >
-              Try the playground
+              Open the dashboard
             </Link>
           </div>
         </Container>
