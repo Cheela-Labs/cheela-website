@@ -27,12 +27,19 @@ async function exists(target) {
 }
 
 async function main() {
-  if (!(await exists(contentDir))) {
-    // A clone without `--recurse-submodules` leaves this empty. Fail loudly:
-    // building a blog with no posts would otherwise deploy a site that has
-    // quietly dropped every article and every URL Google already knows about.
+  // Test for *content*, not for the directory.
+  //
+  // Git materialises an empty directory at an uninitialised submodule's mount
+  // point, so `stat()` succeeds on a clone made without `--recurse-submodules`
+  // — which is what every CI checkout and every plain `git clone` produces. The
+  // guard therefore never fired in the one situation it was written for, and
+  // the build went on to deploy a site that had quietly dropped every article
+  // and every URL Google already knows about. That is the failure; catching a
+  // deleted directory is not.
+  const entries = await readdir(contentDir).catch(() => []);
+  if (entries.length === 0) {
     console.error(
-      `[blog] Content not found at ${path.relative(appDir, contentDir)}\n` +
+      `[blog] No content at ${path.relative(appDir, contentDir)}\n` +
         `[blog] Run: git submodule update --init --recursive`,
     );
     process.exit(1);
