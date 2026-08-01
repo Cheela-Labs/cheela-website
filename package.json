@@ -18,7 +18,7 @@
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.544.0",
-    "marked": "^18.0.7",
+    "marked": "catalog:",
     "next": "16.2.10",
     "react": "19.2.6",
     "react-dom": "19.2.6",
