@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { LeadForm } from "@/components/contact/lead-form";
+import JsonLd from "@/components/seo/json-ld";
 import { Container } from "@/components/ui/container";
 import { createMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, pageSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = createMetadata(
   "Contact",
@@ -37,8 +39,19 @@ const CHANNELS = [
 ];
 
 export default function ContactPage() {
+  const jsonLd = [
+    pageSchema({
+      type: "ContactPage",
+      title: "Contact",
+      description: metadata.description as string,
+      path: "/contact",
+    }),
+    breadcrumbSchema({ title: "Contact", path: "/contact" }),
+  ];
+
   return (
     <>
+      <JsonLd nodes={jsonLd} />
       <section className="px-5 pb-8 pt-20 sm:px-8">
         <Container>
           <div className="mb-4 font-mono text-xs tracking-wide text-accent-strong">

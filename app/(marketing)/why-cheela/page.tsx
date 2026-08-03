@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/seo/json-ld";
 import { Container } from "@/components/ui/container";
 import { createMetadata } from "@/lib/metadata";
 import { seo } from "@/lib/seo";
+import { breadcrumbSchema, pageSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = createMetadata(
   "Why Cheela",
@@ -30,8 +32,19 @@ const QUESTIONS = [
 ];
 
 export default function WhyCheelaPage() {
+  const jsonLd = [
+    pageSchema({
+      type: "WebPage",
+      title: "Why Cheela",
+      description: metadata.description as string,
+      path: "/why-cheela",
+    }),
+    breadcrumbSchema({ title: "Why Cheela", path: "/why-cheela" }),
+  ];
+
   return (
     <>
+      <JsonLd nodes={jsonLd} />
       <section className="pb-16 pt-32">
         <Container narrow>
           <div className="mb-4 font-mono text-xs tracking-wide text-accent-strong">

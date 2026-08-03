@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/seo/json-ld";
 import { Container } from "@/components/ui/container";
 import { createMetadata } from "@/lib/metadata";
 import { seo } from "@/lib/seo";
+import { breadcrumbSchema, faqSchema, pageSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = createMetadata(
   "Pricing",
@@ -78,8 +80,20 @@ const FAQS = [
 ];
 
 export default function PricingPage() {
+  const jsonLd = [
+    pageSchema({
+      type: "WebPage",
+      title: "Pricing",
+      description: metadata.description as string,
+      path: "/pricing",
+    }),
+    breadcrumbSchema({ title: "Pricing", path: "/pricing" }),
+    faqSchema({ path: "/pricing", questions: FAQS }),
+  ];
+
   return (
     <>
+      <JsonLd nodes={jsonLd} />
       <section className="pb-12 pt-24 text-center">
         <Container>
           <div className="mb-4 font-mono text-xs tracking-wide text-accent-strong">

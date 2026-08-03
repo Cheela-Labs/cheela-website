@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/json-ld";
 import { Container } from "@/components/ui/container";
 import { createMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, pageSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = createMetadata(
   "About",
@@ -24,8 +26,19 @@ const PRINCIPLES = [
 ];
 
 export default function AboutPage() {
+  const jsonLd = [
+    pageSchema({
+      type: "AboutPage",
+      title: "About",
+      description: metadata.description as string,
+      path: "/about",
+    }),
+    breadcrumbSchema({ title: "About", path: "/about" }),
+  ];
+
   return (
     <>
+      <JsonLd nodes={jsonLd} />
       <section className="pb-16 pt-32">
         <Container narrow>
           <div className="mb-4 font-mono text-xs tracking-wide text-accent-strong">
