@@ -1,68 +1,43 @@
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { seo } from "@/lib/seo";
 
-const POSTS = [
-  {
-    category: "Engineering",
-    readTime: "6 min",
-    title: "How we route 40M requests a day without a queue",
-    excerpt:
-      "The scheduler behind Cheela's runtime router, and why we avoided a message broker entirely.",
-  },
-  {
-    category: "Evals",
-    readTime: "4 min",
-    title: "Grading agent output without writing a single rubric",
-    excerpt:
-      "A look at the eval pipeline that runs on every execution by default.",
-  },
-  {
-    category: "Product",
-    readTime: "3 min",
-    title: "Why we built capabilities instead of another SDK",
-    excerpt:
-      "The reasoning behind treating model calls as typed capabilities, not raw completions.",
-  },
-];
-
+/**
+ * A pointer, not a preview.
+ *
+ * This section used to render three hard-coded post cards — titles, categories
+ * and read times for articles that were never written, each linking to the
+ * index rather than to anything. Now that the blog lives on its own host, the
+ * website cannot read posts at all, and the honest options were a manually
+ * synced list that goes stale the first time somebody publishes without
+ * remembering this file, or one link that is always correct. This is the
+ * second.
+ */
 export function BlogPreview() {
   return (
     <section className="border-t border-border-default py-24" data-reveal>
       <Container>
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div className="mb-4 font-mono text-xs tracking-wide text-accent-strong">
-              BLOG
-            </div>
-            <h2 className="max-w-[18ch] font-display text-3xl font-bold tracking-tight text-fg-primary">
-              Engineering notes from the team building Cheela.
-            </h2>
-          </div>
-          <Link href="/blog" className="link-accent text-sm font-medium">
-            Read the blog →
-          </Link>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {POSTS.map((post) => (
-            <Link
-              key={post.title}
-              href="/blog"
-              className="block overflow-hidden rounded-lg border border-border-default bg-bg-surface"
-            >
-              <div className="h-2 bg-accent" aria-hidden="true" />
-              <div className="p-6">
-                <div className="mb-3 text-2xs tracking-wide text-fg-tertiary">
-                  {post.category} · {post.readTime}
-                </div>
-                <div className="mb-2 text-md font-semibold leading-snug text-fg-primary">
-                  {post.title}
-                </div>
-                <div className="text-sm leading-relaxed text-fg-secondary">
-                  {post.excerpt}
-                </div>
+        <div className="overflow-hidden rounded-lg border border-border-default bg-bg-surface">
+          <div aria-hidden="true" className="h-1.5 bg-accent" />
+          <div className="flex flex-wrap items-end justify-between gap-6 p-10 sm:p-12">
+            <div>
+              <div className="mb-4 font-mono text-xs tracking-wide text-accent-strong">
+                BLOG
               </div>
-            </Link>
-          ))}
+              <h2 className="mb-3 max-w-[20ch] font-display text-3xl font-bold tracking-tight text-fg-primary">
+                Engineering notes from the team building Cheela.
+              </h2>
+              <p className="max-w-[52ch] text-sm leading-relaxed text-fg-secondary">
+                Deep dives on agent discovery, the capability model, and what we
+                got wrong on the way here.
+              </p>
+            </div>
+            <a
+              className="inline-flex shrink-0 items-center rounded-md bg-accent px-5 py-3 text-sm font-medium text-fg-on-accent transition-transform duration-fast ease-out active:scale-[0.97]"
+              href={seo.links.blog}
+            >
+              Read the blog →
+            </a>
+          </div>
         </div>
       </Container>
     </section>

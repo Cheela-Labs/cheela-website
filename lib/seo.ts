@@ -99,6 +99,8 @@ export const seo = {
   ],
 
   links: {
+    /** Its own host since the blog moved out of this app. */
+    blog: "https://blogs.cheelalabs.com",
     docs: "https://docs.cheelalabs.com",
     dashboard: "https://dashboard.cheelalabs.com",
     github: "https://github.com/cheela-labs",

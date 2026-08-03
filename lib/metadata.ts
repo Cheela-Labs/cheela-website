@@ -99,8 +99,14 @@ export function createMetadata(
     alternates: {
       canonical,
       types: {
+        // The blog's own host. Pointing at this site's /rss.xml would advertise
+        // a URL that only 301s, and feed readers that follow it would store the
+        // redirect source as the feed identity.
         "application/rss+xml": [
-          { url: canonicalUrl("/rss.xml"), title: `${seo.site.name} — Blog` },
+          {
+            url: `${seo.links.blog}/rss.xml`,
+            title: `${seo.site.name} — Blog`,
+          },
         ],
       },
     },

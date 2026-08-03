@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { label: "Why Cheela", href: "/why-cheela" },
   { label: "Docs", href: seo.links.docs },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
+  { label: "Blog", href: seo.links.blog },
   { label: "Changelog", href: "/changelog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
