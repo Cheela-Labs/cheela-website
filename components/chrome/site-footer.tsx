@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LEGAL_DOCUMENTS } from "@/lib/legal";
 import { seo } from "@/lib/seo";
 
 type FooterLink = { label: string; href: string };
@@ -34,11 +35,13 @@ const COLUMNS: FooterColumn[] = [
   },
   {
     title: "LEGAL",
-    links: [
-      { label: "Privacy", href: "/contact" },
-      { label: "Terms", href: "/contact" },
-      { label: "Security", href: "/contact" },
-    ],
+    // Derived from LEGAL_DOCUMENTS so the footer, the sitemap and the pages
+    // that exist cannot disagree. These three previously all pointed at
+    // /contact, which is to say there was no legal documentation at all.
+    links: LEGAL_DOCUMENTS.map((doc) => ({
+      label: doc.title,
+      href: `/${doc.slug}`,
+    })),
   },
 ];
 

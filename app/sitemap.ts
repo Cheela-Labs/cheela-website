@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { LEGAL_DOCUMENTS } from "@/lib/legal";
 import { seo } from "@/lib/seo";
 
 /**
@@ -22,6 +23,13 @@ const ROUTES: { path: string; priority: number; lastModified: string }[] = [
   { path: "/changelog", priority: 0.5, lastModified: "2026-07-27" },
   { path: "/about", priority: 0.5, lastModified: "2026-07-25" },
   { path: "/contact", priority: 0.5, lastModified: "2026-07-25" },
+  // Legal pages are indexable but low priority — people arrive at them from
+  // the footer or a support reply, not from search.
+  ...LEGAL_DOCUMENTS.map((doc) => ({
+    path: `/${doc.slug}`,
+    priority: 0.3,
+    lastModified: "2026-08-05",
+  })),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
