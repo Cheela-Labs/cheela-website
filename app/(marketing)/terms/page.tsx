@@ -18,11 +18,21 @@ export default function TermsPage() {
     >
       <Section id="acceptance" title="1. Acceptance of terms">
         <p>
-          These terms are an agreement between you and {legal.entity.name} (
-          &ldquo;{legal.entity.tradingName}&rdquo;, &ldquo;we&rdquo;,
+          These terms are an agreement between you and {legal.operator.name}, an
+          individual operating under the trading name &ldquo;
+          {legal.operator.tradingName}&rdquo; (&ldquo;we&rdquo;,
           &ldquo;us&rdquo;). By creating an account, calling the API, or using
           the CLI, SDK or dashboard, you accept them. If you do not accept them,
           do not use the service.
+        </p>
+        <p>
+          <strong>
+            Cheela Labs is a trading name, not a registered company.
+          </strong>{" "}
+          There is no separate legal entity — the service is operated by the
+          individual named above, and this agreement is with that person. We
+          state this rather than leave it to be inferred, because it affects who
+          you are contracting with and who is answerable to you.
         </p>
         <p>
           If you are accepting on behalf of a company, you confirm you are
@@ -220,7 +230,21 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section id="governing-law" title="13. Governing law">
+      <Section id="assignment" title="13. Assignment">
+        <p>
+          You may not transfer your rights under these terms without our written
+          consent.
+        </p>
+        <p>
+          We may transfer ours to a company incorporated to operate the service,
+          or to a successor in a merger or sale of the business. This exists so
+          that incorporating later does not require every customer to sign a new
+          agreement — your terms carry across unchanged, and we will tell you
+          when it happens.
+        </p>
+      </Section>
+
+      <Section id="governing-law" title="14. Governing law">
         <p>
           These terms are governed by the laws of {legal.jurisdiction.country}.
           The courts of {legal.jurisdiction.courts} have exclusive jurisdiction
@@ -228,11 +252,11 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section id="contact" title="14. Contact">
+      <Section id="contact" title="15. Contact">
         <p>
-          {legal.entity.name}
+          {legal.operator.name}
           <br />
-          {legal.entity.address}
+          {legal.operator.address}
           <br />
           <a href={`mailto:${legal.contact.general}`}>
             {legal.contact.general}

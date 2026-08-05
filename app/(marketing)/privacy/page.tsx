@@ -229,9 +229,9 @@ export default function PrivacyPage() {
 
       <Section id="contact" title="13. Contact">
         <p>
-          {legal.entity.name}
+          {legal.operator.name}
           <br />
-          {legal.entity.address}
+          {legal.operator.address}
           <br />
           <a href={`mailto:${legal.contact.privacy}`}>
             {legal.contact.privacy}

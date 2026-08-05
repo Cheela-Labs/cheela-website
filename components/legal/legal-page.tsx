@@ -44,7 +44,7 @@ export function LegalPage({
             <p className="mt-6 text-sm text-ink-6">
               {ready ? (
                 <>
-                  Effective {legal.effectiveDate} · {legal.entity.name}
+                  Effective {legal.effectiveDate} · {legal.operator.name}
                 </>
               ) : (
                 <>Draft — not yet in force</>

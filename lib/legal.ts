@@ -7,8 +7,8 @@
  * rest of each page describes what the system actually does, and that part was
  * written from the code rather than from a template.
  *
- * ⚠️ FILL THESE IN BEFORE PUBLISHING. `entity.name` and `entity.address` are
- * placeholders. `isPublishable()` below is what the pages check; while it is
+ * ⚠️ FILL THESE IN BEFORE PUBLISHING. `operator.name` and `operator.address`
+ * are placeholders. `isPublishable()` below is what the pages check; while it is
  * false every page renders a visible warning instead of pretending to be in
  * force.
  *
@@ -17,12 +17,24 @@
  */
 
 export const legal = {
-  entity: {
-    /** Registered company name, e.g. "Cheela Labs Private Limited". */
-    name: "[REGISTERED ENTITY NAME]",
-    /** Registered office address as filed. */
-    address: "[REGISTERED OFFICE ADDRESS]",
-    /** Trading name used throughout the product. */
+  /**
+   * The party to these documents.
+   *
+   * There is no company. Cheela Labs is a trading name used by an individual,
+   * so the contracting party is that person and there is no separate legal
+   * entity between them and a customer — which the Terms say plainly rather
+   * than implying a company that does not exist.
+   *
+   * The practical consequence is that the liability cap in the Terms is
+   * contractual only. It is not backed by a corporate structure, so it does not
+   * separate personal assets from the business the way incorporation would.
+   */
+  operator: {
+    /** Full legal name of the individual operating the service. */
+    name: "[YOUR FULL LEGAL NAME]",
+    /** Address for legal notice. Required on the documents; use a business address if you have one. */
+    address: "[ADDRESS FOR NOTICE]",
+    /** Trading name used throughout the product. Not a registered mark. */
     tradingName: "Cheela Labs",
   },
 
@@ -52,8 +64,8 @@ export const legal = {
 /** True once the placeholders above have been replaced. */
 export function isPublishable(): boolean {
   return ![
-    legal.entity.name,
-    legal.entity.address,
+    legal.operator.name,
+    legal.operator.address,
     legal.effectiveDate,
     legal.jurisdiction.courts,
   ].some((value) => value.startsWith("["));
