@@ -23,7 +23,7 @@ const TIERS = [
   },
   {
     name: "Pro",
-    price: "$50",
+    price: "$49",
     priceSub: "per month",
     cta: "Get Pro",
     inverse: true,

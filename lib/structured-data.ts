@@ -87,12 +87,12 @@ export const structuredData = [
       {
         "@type": "Offer",
         name: "Pro",
-        price: "50",
+        price: "49",
         priceCurrency: "USD",
         url: siteUrl("/pricing"),
         priceSpecification: {
           "@type": "UnitPriceSpecification",
-          price: "50",
+          price: "49",
           priceCurrency: "USD",
           // Per month, stated in the way Google reads recurring pricing.
           referenceQuantity: {

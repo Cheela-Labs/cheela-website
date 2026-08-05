@@ -11,7 +11,7 @@ const TIERS = [
   },
   {
     name: "Pro",
-    price: "$50/mo",
+    price: "$49/mo",
     features: ["10 runtimes", "2,000 executions / hour", "Priority support"],
     cta: "Start Pro trial",
     inverse: true,
